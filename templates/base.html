@@ -1,0 +1,34 @@
+<!-- template base para todas as paginas -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Blue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>PACIFIC BLUE</h2>
+            <nav>
+                <a class="{% if request.path == url_for('dashboard.dashboard') %}ativo{% endif %}" href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+                <a class="{% if request.path.startswith('/produtos') %}ativo{% endif %}" href="{{ url_for('produtos.produtos_lista') }}">Produtos</a>
+                <a class="{% if request.path.startswith('/clientes') %}ativo{% endif %}" href="{{ url_for('clientes.clientes_lista') }}">Clientes</a>
+                <a class="{% if request.path.startswith('/movimentacao') %}ativo{% endif %}" href="{{ url_for('movimentacao.movimentacao') }}">Movimentação</a>
+                <a class="{% if request.path.startswith('/ordens') %}ativo{% endif %}" href="{{ url_for('ordens.ordens_lista') }}">Ordens de Produção</a>
+                <a class="{% if request.path.startswith('/lotes') %}ativo{% endif %}" href="{{ url_for('lotes.lotes_lista') }}">Lotes de Lavanderia</a>
+                <a class="{% if request.path.startswith('/historico') %}ativo{% endif %}" href="{{ url_for('historico.historico') }}">Histórico</a>
+                <a class="{% if request.path.startswith('/relatorios') %}ativo{% endif %}" href="{{ url_for('relatorios.relatorios') }}">Relatórios</a>
+                <a class="{% if request.path.startswith('/usuarios') %}ativo{% endif %}" href="{{ url_for('usuarios.usuarios_lista') }}">Usuários</a>
+            </nav>
+            <a class="alterar-senha" href="{{ url_for('usuarios.alterar_senha') }}">Alterar senha</a>
+            <a class="sair" href="{{ url_for('login.sair') }}">↪ Sair</a>
+        </aside>
+        <main class="conteudo">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

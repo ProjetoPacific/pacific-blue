@@ -1,0 +1,31 @@
+<!-- tela que mostra lotes -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Lotes de Lavanderia</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Lote ou referência...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('lotes.novo_lote') }}">+ Novo Lote</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Nº Lote</th>
+            <th>Data Entrada</th>
+            <th>Cliente</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        {% for l in lotes %}
+        <tr>
+            <td>{{ l.numero }}</td>
+            <td>{{ l.data_entrada }}</td>
+            <td>{{ l.cliente }}</td>
+            <td>{{ l.status }}</td>
+            <td><a href="{{ url_for('lotes.conversao_lote', numero=l.numero) }}">Converter</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

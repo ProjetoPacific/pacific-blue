@@ -1,0 +1,59 @@
+<!-- tela principal (mostra numeros importantes do sistema) -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Dashboard</h1>
+    <h2>Olá, {{ usuario }}!</h2>
+    <p>Bem-vindo ao sistema Pacific Blue.</p>
+
+    <div class="cards">
+        <div class="card">
+            <p>Total de Produtos</p>
+            <h3>{{ total_produtos }}</h3>
+        </div>
+        <div class="card">
+            <p>Estoque Mínimo</p>
+            <h3>{{ estoque_minimo }}</h3>
+        </div>
+        <div class="card">
+            <p>Lotes em Lavanderia</p>
+            <h3>{{ lotes_lavanderia }}</h3>
+        </div>
+    </div>
+
+    <h3>Movimentações recentes</h3>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+        </tr>
+        {% for m in movimentacoes %}
+        <tr>
+            <td>{{ m.data }}</td>
+            <td>{{ m.produto }}</td>
+            <td>{{ m.tipo }}</td>
+            <td>{{ m.quantidade }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Estoque em falta (mínimo)</h3>
+    <table>
+        <tr>
+            <th>Referência</th>
+            <th>Produto</th>
+            <th>Atual</th>
+            <th>Mínimo</th>
+        </tr>
+        {% for p in produtos_em_falta %}
+        <tr>
+            <td>{{ p.referencia }}</td>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.estoque }}</td>
+            <td>{{ p.estoque_minimo }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

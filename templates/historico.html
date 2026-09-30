@@ -1,0 +1,34 @@
+<!-- tela que mostra o historico do estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Histórico de Movimentações</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Referência, lote ou produto...">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Motivo</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Usuário</th>
+            <th>Observação</th>
+        </tr>
+        {% for m in movimentacoes %}
+        <tr>
+            <td>{{ m.data }}</td>
+            <td>{{ m.tipo }}</td>
+            <td>{{ m.motivo }}</td>
+            <td>{{ m.produto }}</td>
+            <td>{{ m.quantidade }}</td>
+            <td>{{ m.usuario }}</td>
+            <td>{{ m.observacao if m.observacao else "-" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

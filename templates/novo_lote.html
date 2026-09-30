@@ -1,0 +1,19 @@
+<!-- tela para criar um lote -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('lotes.lotes_lista') }}">← Novo Lote</a>
+
+    <form method="post">
+        <label for="numero">Nº Lote</label>
+        <input type="text" id="numero" name="numero" placeholder="Ex: L006" required>
+
+        <label for="cliente">Cliente</label>
+        <input type="text" id="cliente" name="cliente" placeholder="Ex: DKS" required>
+
+        <label for="data_entrada">Data Entrada</label>
+        <input type="text" id="data_entrada" name="data_entrada" placeholder="dd/mm/aaaa" required>
+
+        <button type="submit" class="botao">Salvar</button>
+    </form>
+{% endblock %}

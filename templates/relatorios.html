@@ -1,0 +1,35 @@
+<!-- menu dos relatorios -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Relatórios</h1>
+
+    <div class="relatorios-caixa">
+        <div class="relatorios-lista">
+            <a class="relatorio-item relatorio-link" href="{{ url_for('relatorios.relatorio_estoque') }}">
+                <h3>Relatório de Estoque</h3>
+                <p>Visualize o saldo atual dos produtos.</p>
+            </a>
+            <a class="relatorio-item relatorio-link" href="{{ url_for('relatorios.relatorio_movimentacoes') }}">
+                <h3>Movimentações</h3>
+                <p>Consulte todas as movimentações registradas.</p>
+            </a>
+            <a class="relatorio-item relatorio-link" href="{{ url_for('relatorios.relatorio_estoque_minimo') }}">
+                <h3>Produtos em Estoque Mínimo</h3>
+                <p>Veja os produtos que precisam de reposição.</p>
+            </a>
+            <a class="relatorio-item relatorio-link" href="{{ url_for('relatorios.relatorio_lotes') }}">
+                <h3>Lotes de Lavanderia</h3>
+                <p>Acompanhe os lotes cadastrados e seus status.</p>
+            </a>
+        </div>
+
+        <div class="resumo">
+            <h3>Resumo</h3>
+            <p>Produtos<br><strong>{{ total_produtos }}</strong></p>
+            <p>Estoque mínimo<br><strong>{{ estoque_minimo }}</strong></p>
+            <p>Lotes<br><strong>{{ total_lotes }}</strong></p>
+            <p>Movimentações<br><strong>{{ total_movimentacoes }}</strong></p>
+        </div>
+    </div>
+{% endblock %}

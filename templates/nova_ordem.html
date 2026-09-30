@@ -1,0 +1,54 @@
+<!-- tela para criar uma nova ordem de producao -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar para ordens</a>
+    <h1>Nova Ordem de Produção</h1>
+
+    <form method="post" class="form-produto">
+        <div class="coluna">
+            <label for="numero">Código da Ordem</label>
+            <input type="text" id="numero" name="numero" placeholder="Ex: 0006" required>
+
+            <label for="referencia">Referência</label>
+            <select id="referencia" name="referencia" required>
+                <option value="">Selecione</option>
+                {% for r in referencias %}<option>{{ r }}</option>{% endfor %}
+            </select>
+
+            <label for="cliente">Cliente</label>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione</option>
+                {% for c in clientes %}<option>{{ c }}</option>{% endfor %}
+            </select>
+
+            <label for="quantidade">Quantidade</label>
+            <input type="number" id="quantidade" name="quantidade" min="1" required>
+        </div>
+
+        <div class="coluna">
+            <label for="processo">Processo de Trabalho</label>
+            <select id="processo" name="processo" required>
+                <option value="">Selecione</option>
+                {% for p in processos %}<option>{{ p }}</option>{% endfor %}
+            </select>
+
+            <label for="local">Local atual</label>
+            <select id="local" name="local" required>
+                {% for l in locais %}<option>{{ l }}</option>{% endfor %}
+                <option>Saída</option>
+            </select>
+
+            <label for="data_local">Data de entrada no local</label>
+            <input type="text" id="data_local" name="data_local" placeholder="dd/mm/aaaa" required>
+
+            <label for="destino">Saída para o destino</label>
+            <input type="text" id="destino" name="destino" placeholder="Ex: AC">
+        </div>
+
+        <div class="botoes">
+            <a class="botao cancelar" href="{{ url_for('ordens.ordens_lista') }}">Cancelar</a>
+            <button type="submit" class="botao">Cadastrar Ordem</button>
+        </div>
+    </form>
+{% endblock %}

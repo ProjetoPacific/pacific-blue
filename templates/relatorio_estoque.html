@@ -1,0 +1,17 @@
+<!-- tela que mostra o relatorio de estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('relatorios.relatorios') }}">← Relatórios</a>
+    <h1>Relatório de Estoque</h1>
+    <table>
+        <tr><th>Referência</th><th>Produto</th><th>Cliente</th><th>Grupo</th><th>Estoque</th><th>Mínimo</th><th>Status</th></tr>
+        {% for p in produtos %}
+        <tr>
+            <td>{{ p.referencia }}</td><td>{{ p.nome }}</td><td>{{ p.cliente }}</td><td>{{ p.grupo }}</td>
+            <td>{{ p.estoque }}</td><td>{{ p.estoque_minimo }}</td>
+            <td>{% if p.estoque <= p.estoque_minimo %}Baixo{% else %}OK{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

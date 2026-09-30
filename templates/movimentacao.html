@@ -1,0 +1,50 @@
+<!-- tela para adicionar ou retirar produtos do estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Movimentação de Estoque</h1>
+
+    <div class="abas">
+        <a class="{% if tipo == 'Entrada' %}aba-ativa{% endif %}" href="?tipo=Entrada">Entrada</a>
+        <a class="{% if tipo == 'Saída' %}aba-ativa{% endif %}" href="?tipo=Saída">Saída</a>
+        <a class="{% if tipo == 'Ajuste' %}aba-ativa{% endif %}" href="?tipo=Ajuste">Ajuste</a>
+    </div>
+
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+
+    <form method="post">
+        <input type="hidden" name="tipo" value="{{ tipo }}">
+
+        <label for="produto">Produto</label>
+        <select id="produto" name="produto" required>
+            {% for p in produtos %}
+            <option value="{{ p.referencia }}">{{ p.referencia }} - {{ p.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" placeholder="Digite a quantidade" required>
+
+        {% if tipo == 'Ajuste' %}
+        <label for="sinal_ajuste">Tipo do ajuste</label>
+        <select id="sinal_ajuste" name="sinal_ajuste">
+            <option value="entrada">Aumentar estoque</option>
+            <option value="saida">Diminuir estoque</option>
+        </select>
+        {% endif %}
+
+        <label for="motivo">Motivo</label>
+        <select id="motivo" name="motivo" required>
+            <option value="">Selecione</option>
+            {% for motivo in motivos %}<option>{{ motivo }}</option>{% endfor %}
+        </select>
+
+        <label for="observacao">Observação (opcional)</label>
+        <textarea id="observacao" name="observacao" placeholder="Digite uma observação..."></textarea>
+
+        <label for="data">Data da Movimentação</label>
+        <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
+
+        <button type="submit" class="botao">Registrar</button>
+    </form>
+{% endblock %}

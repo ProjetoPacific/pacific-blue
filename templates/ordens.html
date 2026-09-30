@@ -1,0 +1,33 @@
+<!-- tela que mostra ordens de producao -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Ordens de Produção</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Nº, referência, cliente, processo ou local...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('ordens.nova_ordem') }}">+ Nova Ordem</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Nº Ordem</th><th>Referência</th><th>Cliente</th><th>Qtd.</th><th>Processo</th>
+            <th>Local atual</th><th>Dias no local</th><th>Status</th><th>Destino</th><th>Ação</th>
+        </tr>
+        {% for o in ordens %}
+        <tr>
+            <td>{{ o.numero }}</td><td>{{ o.referencia }}</td><td>{{ o.cliente }}</td><td>{{ o.quantidade }}</td>
+            <td>{{ o.processo }}</td><td>{{ o.local }}</td><td>{{ o.dias_local }}</td><td>{{ o.status }}</td><td>{{ o.destino or '-' }}</td><td><a href="{{ url_for('ordens.mover_ordem', numero=o.numero) }}">Mudar local</a></td>
+        </tr>
+        <tr>
+            <td colspan="10">
+                <strong>Fluxo:</strong>
+                {% for etapa in o.fluxo %}
+                    {{ etapa.local }} ({{ etapa.data }}){% if not loop.last %} → {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

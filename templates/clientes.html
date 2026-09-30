@@ -1,0 +1,19 @@
+<!-- tela para mostrar clientes -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Clientes</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Nome, telefone ou e-mail...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('clientes.novo_cliente') }}">+ Novo Cliente</a>
+    </form>
+
+    <table>
+        <tr><th>Cliente</th><th>Telefone</th><th>E-mail</th></tr>
+        {% for c in clientes %}
+        <tr><td>{{ c.nome }}</td><td>{{ c.telefone }}</td><td>{{ c.email }}</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

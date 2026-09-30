@@ -1,0 +1,13 @@
+<!-- tela que mostra o relatorio das movimentacoes -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('relatorios.relatorios') }}">← Relatórios</a>
+    <h1>Relatório de Movimentações</h1>
+    <table>
+        <tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Motivo</th><th>Quantidade</th><th>Usuário</th><th>Observação</th></tr>
+        {% for m in movimentacoes %}
+        <tr><td>{{ m.data }}</td><td>{{ m.produto }}</td><td>{{ m.tipo }}</td><td>{{ m.motivo }}</td><td>{{ m.quantidade }}</td><td>{{ m.usuario }}</td><td>{{ m.observacao if m.observacao else "-" }}</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!-- tela para converter lote em grade -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('lotes.lotes_lista') }}">← Conversão do Lote em Grade</a>
+
+    <div class="info-lote">
+        <p>Lote: {{ lote.numero }}</p>
+        <p>Cliente: {{ lote.cliente }}</p>
+        <p>Data de Entrada: {{ lote.data_entrada }}</p>
+    </div>
+
+    <h3>Grade de Tamanhos</h3>
+    <form method="post">
+        <table>
+            <tr>
+                <th>Tamanho</th>
+                <th>Quantidade</th>
+            </tr>
+            {% for t in tamanhos %}
+            <tr>
+                <td>{{ t }}</td>
+                <td><input type="number" name="quantidade_{{ t }}" value="0"></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="botoes">
+            <a class="botao cancelar" href="{{ url_for('lotes.lotes_lista') }}">Cancelar</a>
+            <button type="submit" class="botao">Confirmar Conversão</button>
+        </div>
+    </form>
+{% endblock %}

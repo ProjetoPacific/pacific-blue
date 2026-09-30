@@ -1,0 +1,13 @@
+<!-- tela que mostra produtos com pouco estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('relatorios.relatorios') }}">← Relatórios</a>
+    <h1>Produtos em Estoque Mínimo</h1>
+    <table>
+        <tr><th>Referência</th><th>Produto</th><th>Cliente</th><th>Atual</th><th>Mínimo</th></tr>
+        {% for p in produtos %}
+        <tr><td>{{ p.referencia }}</td><td>{{ p.nome }}</td><td>{{ p.cliente }}</td><td>{{ p.estoque }}</td><td>{{ p.estoque_minimo }}</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

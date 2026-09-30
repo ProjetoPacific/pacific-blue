@@ -1,0 +1,35 @@
+<!-- tela para mudar uma ordem de lugar -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar para ordens</a>
+    <h1>Mudar Local da Ordem {{ ordem.numero }}</h1>
+
+    <div class="info-lote">
+        <p><strong>Referência:</strong> {{ ordem.referencia }}</p>
+        <p><strong>Cliente:</strong> {{ ordem.cliente }}</p>
+        <p><strong>Local atual:</strong> {{ ordem.local }}</p>
+        <p><strong>Data atual:</strong> {{ ordem.data_local }}</p>
+    </div>
+
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+
+    <form method="post">
+        <label for="local">Novo local</label>
+        <select id="local" name="local" required>
+            {% for l in locais %}<option value="{{ l }}">{{ l }}</option>{% endfor %}
+            <option value="Saída">Saída</option>
+        </select>
+
+        <label for="data_local">Data da mudança</label>
+        <input type="text" id="data_local" name="data_local" placeholder="dd/mm/aaaa" required>
+
+        <label for="destino">Destino, quando for saída</label>
+        <input type="text" id="destino" name="destino" value="{{ ordem.destino }}" placeholder="Ex: AC">
+
+        <div class="botoes">
+            <a class="botao cancelar" href="{{ url_for('ordens.ordens_lista') }}">Cancelar</a>
+            <button type="submit" class="botao">Registrar mudança</button>
+        </div>
+    </form>
+{% endblock %}
