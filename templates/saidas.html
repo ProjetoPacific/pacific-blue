@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Saídas de Estoque</h1>
+    <p>registros feitos em controle de estoque aparecem automaticamente nesta planilha.</p>
+    <div class="historico-tabela">
+    <table>
+        <tr><th>Data</th><th>Produto</th><th>Origem</th><th>Doc. Destino</th><th>Cliente</th><th>Quantidade</th><th>Local</th><th>Usuário</th><th>Observação</th></tr>
+        {% for m in movimentacoes %}
+        <tr>
+            <td>{{ m.get("data", "-") or "-" }}</td>
+            <td>{{ m.get("produto", "-") or "-" }}</td>
+            <td>{{ m.get("origem", "-") or "-" }}</td>
+            <td>{{ m.get("doc_destino", "-") or "-" }}</td>
+            <td>{{ m.get("cliente", "-") or "-" }}</td>
+            <td>{{ m.get("quantidade", "-")|abs }}</td>
+            <td>{{ m.get("local", "-") or "-" }}</td>
+            <td>{{ m.get("usuario", "-") or "-" }}</td>
+            <td>{{ m.get("observacao", "-") or "-" }}</td>
+        </tr>
+        {% endfor %}
+        {% if not movimentacoes %}
+        <tr><td colspan="9">nenhum registro de saída encontrado.</td></tr>
+        {% endif %}
+    </table>
+    </div>
+    <a class="botao" href="{{ url_for('movimentacao.movimentacao', tipo='Saída') }}">Registrar Saídas de Estoque_SINGULAR</a>
+{% endblock %}

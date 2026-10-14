@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Pacific Blue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body class="pagina-login">
+    <div class="login-box">
+        <h1>PACIFIC BLUE</h1>
+        <p>Cadastro de conta</p>
+        <div class="login-card">
+            <h2>Criar conta</h2>
+            {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+            {% if sucesso %}<p class="sucesso">{{ sucesso }}</p>{% endif %}
+            <form method="post">
+                <label>Nome</label>
+                <input type="text" name="nome" required>
+                <label>E-mail</label>
+                <input type="email" name="email" required>
+                <label>Usuário</label>
+                <input type="text" name="usuario" required>
+                <label>Senha</label>
+                <input type="password" name="senha" required>
+                <label>Confirmar senha</label>
+                <input type="password" name="confirmar" required>
+                <button type="submit">CRIAR CONTA</button>
+            </form>
+            <div class="links-login">
+                <a href="{{ url_for('login.login') }}">Voltar para o login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

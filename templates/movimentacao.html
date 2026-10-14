@@ -1,0 +1,80 @@
+<!-- tela de controle de estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="eyebrow">Entradas e saídas</div>
+    <h1>Controle de estoque</h1>
+    <p>Registre movimentações com documento, origem e local para manter o saldo rastreável.</p>
+
+    <div class="abas">
+        <a class="{% if tipo == 'Entrada' %}aba-ativa{% endif %}" href="?tipo=Entrada">Entrada</a>
+        <a class="{% if tipo == 'Saída' %}aba-ativa{% endif %}" href="?tipo=Saída">Saída</a>
+    </div>
+
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+
+    <form method="post">
+        <input type="hidden" name="tipo" value="{{ tipo }}">
+
+        <label for="produto">Produto</label>
+        <select id="produto" name="produto" required>
+            <option value="">Selecione</option>
+            {% for p in produtos %}
+            <option value="{{ p.referencia }}">{{ p.referencia }} - {{ p.descricao }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" placeholder="Digite a quantidade" required>
+
+        <label for="data">Data</label>
+        <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
+
+        <label for="origem">Origem</label>
+        <select id="origem" name="origem" required>
+            <option value="">Selecione</option>
+            {% for origem in origens %}
+            <option value="{{ origem }}">{{ origem }}</option>
+            {% endfor %}
+        </select>
+
+        {% if tipo == 'Entrada' %}
+            <label for="doc_origem">Doc. Origem</label>
+            <input type="text" id="doc_origem" name="doc_origem" placeholder="Ex: NF-001" required>
+
+            <label for="fornecedor">Fornecedor</label>
+            <select id="fornecedor" name="fornecedor" required>
+                <option value="">Selecione</option>
+                {% for f in fornecedores %}
+                <option value="{{ f }}">{{ f }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <label for="doc_destino">Doc. Destino</label>
+            <input type="text" id="doc_destino" name="doc_destino" placeholder="Ex: PED-001" required>
+
+            <label for="cliente">Cliente</label>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione</option>
+                {% for c in clientes %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        <label for="local">Local</label>
+        <select id="local" name="local" required>
+            <option value="">Selecione</option>
+            {% for l in locais %}
+            <option value="{{ l }}">{{ l }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="observacao">Observação (opcional)</label>
+        <textarea id="observacao" name="observacao" placeholder="Digite uma observação..."></textarea>
+
+        <button type="submit" class="botao">Registrar {{ tipo }}</button>
+    </form>
+
+    <a class="voltar" href="{{ url_for('historico.historico') }}">Ver Histórico de Movimentações</a>
+{% endblock %}

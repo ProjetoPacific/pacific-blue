@@ -1,0 +1,64 @@
+<!-- tela de cadastro de produto / estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="eyebrow">Catálogo e disponibilidade</div>
+    <h1>Produtos e estoque</h1>
+    <p>Consulte referências, clientes e quantidades disponíveis. Use os filtros para localizar produtos rapidamente.</p>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar produto...">
+
+        <select name="grupo">
+            <option value="Todos">Todos os grupos</option>
+            {% for g in grupos %}
+            <option value="{{ g }}" {% if grupo == g %}selected{% endif %}>{{ g }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="cliente">
+            <option value="Todos">Todos os clientes</option>
+            {% for c in clientes %}
+            <option value="{{ c }}" {% if cliente == c %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('produtos.novo_produto') }}">+ Novo Produto</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Referência</th>
+            <th>Descrição</th>
+            <th>Cor</th>
+            <th>Tamanho</th>
+            <th>Gênero</th>
+            <th>Grupo</th>
+            <th>Grade</th>
+            <th>Data</th>
+            <th>Cliente</th>
+            <th>Fornecedor</th>
+            <th>Estoque</th>
+            <th>Situação</th>
+        </tr>
+        {% for p in produtos %}
+        <tr>
+            <td>{{ p.referencia }}</td>
+            <td>{{ p.descricao }}</td>
+            <td>{{ p.cor }}</td>
+            <td>{{ p.tamanho }}</td>
+            <td>{{ p.genero }}</td>
+            <td>{{ p.grupo }}</td>
+            <td>{{ p.grade }}</td>
+            <td>{{ p.data }}</td>
+            <td>{{ p.cliente }}</td>
+            <td>{{ p.fornecedor }}</td>
+            <td><strong>{{ p.estoque }}</strong></td>
+            <td>{% if p.estoque <= p.estoque_minimo %}<span class="estoque-status status-baixo">Estoque baixo</span>{% else %}<span class="estoque-status status-ok">Disponível</span>{% endif %}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="12">Nenhum produto encontrado com esses filtros.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

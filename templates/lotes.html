@@ -1,0 +1,33 @@
+<!-- tela de lotes -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="eyebrow">Recebimento e processamento</div>
+    <h1>Lotes</h1>
+    <p>Consulte os lotes por número, cliente ou situação atual.</p>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Número, cliente ou status...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('lotes.novo_lote') }}">+ Novo Lote</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Nº Lote</th>
+            <th>Data de Entrada</th>
+            <th>Cliente</th>
+            <th>Status</th>
+        </tr>
+        {% for l in lotes %}
+        <tr>
+            <td>{{ l.numero }}</td>
+            <td>{{ l.data_entrada }}</td>
+            <td>{{ l.cliente }}</td>
+            <td><span class="status {% if 'Lavanderia' in l.status %}status-andamento{% elif 'Recebido' in l.status %}status-ok{% else %}status-pendente{% endif %}">{{ l.status }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">Nenhum lote encontrado.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

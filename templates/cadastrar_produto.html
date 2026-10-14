@@ -1,0 +1,62 @@
+<!-- tela de cadastro de produto / estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('produtos.produtos_lista') }}">← Voltar</a>
+    <h1>Cadastro de Estoque / Produto</h1>
+
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+
+    <form method="post" class="form-produto">
+        <div class="coluna">
+            <label for="referencia">Referência</label>
+            <input type="text" id="referencia" name="referencia" placeholder="Ex: DB-001" required>
+
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" name="descricao" placeholder="Digite a descrição" required>
+
+            <label for="cor">Cor</label>
+            <input type="text" id="cor" name="cor" placeholder="Ex: Azul" required>
+
+            <label for="tamanho">Tamanho</label>
+            <input type="text" id="tamanho" name="tamanho" placeholder="Ex: M" required>
+
+            <label for="genero">Gênero</label>
+            <select id="genero" name="genero" required>
+                <option value="">Selecione</option>
+                {% for g in generos %}<option>{{ g }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="coluna">
+            <label for="grupo">Grupo</label>
+            <select id="grupo" name="grupo" required>
+                <option value="">Selecione</option>
+                {% for g in grupos %}<option>{{ g }}</option>{% endfor %}
+            </select>
+
+            <label for="grade">Grade</label>
+            <input type="text" id="grade" name="grade" placeholder="Ex: P:10 M:20 G:20" required>
+
+            <label for="data">Data</label>
+            <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
+
+            <label for="cliente">Cliente</label>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione</option>
+                {% for c in clientes %}<option>{{ c }}</option>{% endfor %}
+            </select>
+
+            <label for="fornecedor">Fornecedor</label>
+            <select id="fornecedor" name="fornecedor" required>
+                <option value="">Selecione</option>
+                {% for f in fornecedores %}<option>{{ f }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="botoes">
+            <a class="botao cancelar" href="{{ url_for('produtos.produtos_lista') }}">Cancelar</a>
+            <button type="submit" class="botao">Salvar Produto</button>
+        </div>
+    </form>
+{% endblock %}

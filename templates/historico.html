@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Histórico de movimentações | Pacific Blue{% endblock %}
+{% block content %}
+<div class="historico-intro">
+    <div>
+        <span class="eyebrow">Rastreabilidade do estoque</span>
+        <h1>Histórico de movimentações</h1>
+        <p>Consulte entradas e saídas, confira documentos e identifique quem realizou cada operação.</p>
+    </div>
+    <a class="botao" href="{{ url_for('movimentacao.movimentacao') }}">＋ Nova movimentação</a>
+</div>
+
+<section class="historico-resumo" aria-label="Resumo das movimentações filtradas">
+    <article class="historico-metrica">
+        <span class="historico-metrica-icone">≡</span>
+        <div><span>Registros encontrados</span><strong>{{ total_registros }}</strong></div>
+    </article>
+    <article class="historico-metrica entrada">
+        <span class="historico-metrica-icone">↓</span>
+        <div><span>Total de entradas</span><strong>+{{ entradas_total }}</strong><small>unidades</small></div>
+    </article>
+    <article class="historico-metrica saida">
+        <span class="historico-metrica-icone">↑</span>
+        <div><span>Total de saídas</span><strong>−{{ saidas_total }}</strong><small>unidades</small></div>
+    </article>
+</section>
+
+<form method="get" class="historico-filtros">
+    <div class="historico-filtro-busca">
+        <label for="busca">Pesquisar no histórico</label>
+        <input id="busca" type="search" name="busca" value="{{ busca }}" placeholder="Produto, documento, cliente, usuário...">
+    </div>
+    <div>
+        <label for="tipo">Tipo</label>
+        <select id="tipo" name="tipo">
+            <option value="">Todas as movimentações</option>
+            <option value="Entrada" {% if tipo == 'Entrada' %}selected{% endif %}>Entradas</option>
+            <option value="Saída" {% if tipo == 'Saída' %}selected{% endif %}>Saídas</option>
+        </select>
+    </div>
+    <div>
+        <label for="data_inicio">De</label>
+        <input id="data_inicio" type="date" name="data_inicio" value="{{ data_inicio }}">
+    </div>
+    <div>
+        <label for="data_fim">Até</label>
+        <input id="data_fim" type="date" name="data_fim" value="{{ data_fim }}">
+    </div>
+    <div class="historico-acoes-filtro">
+        <button type="submit">Aplicar filtros</button>
+        <a class="botao cancelar" href="{{ url_for('historico.historico') }}">Limpar</a>
+    </div>
+</form>
+
+<div class="historico-dica"><strong>Dica:</strong> pesquise pelo código do produto ou número da nota/pedido para rastrear uma movimentação específica.</div>
+
+<div class="historico-tabela">
+<table>
+    <thead>
+        <tr>
+            <th>Data</th><th>Produto</th><th>Movimentação</th><th>Quantidade</th>
+            <th>Origem / documento</th><th>Destino / cliente</th><th>Local</th><th>Responsável</th><th>Observação</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for m in movimentacoes %}
+        <tr>
+            <td class="historico-data">{{ m.get('data', '-') }}</td>
+            <td><strong class="historico-produto">{{ m.get('produto', '-') }}</strong><span class="historico-subtexto">{{ m.get('fornecedor', '') }}</span></td>
+            <td><span class="movimento-badge {% if m.get('tipo') == 'Entrada' %}movimento-entrada{% else %}movimento-saida{% endif %}">{{ m.get('tipo', '-') }}</span><span class="historico-subtexto">{{ m.get('origem', '-') }}</span></td>
+            <td><strong class="quantidade-movimento {% if m.get('tipo') == 'Entrada' %}qtd-positiva{% else %}qtd-negativa{% endif %}">{% if m.get('tipo') == 'Entrada' %}+{% elif m.get('tipo') == 'Saída' %}−{% endif %}{{ m.get('quantidade', 0)|abs }}</strong><span class="historico-subtexto">unidades</span></td>
+            <td>{{ m.get('doc_origem', '-') or '-' }}<span class="historico-subtexto">{{ m.get('fornecedor', '') }}</span></td>
+            <td>{{ m.get('doc_destino', '-') or '-' }}<span class="historico-subtexto">{{ m.get('cliente', '') }}</span></td>
+            <td>{{ m.get('local', '-') or '-' }}</td>
+            <td>{{ m.get('usuario', '-') }}</td>
+            <td class="historico-observacao">{{ m.get('observacao', '-') or '-' }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="9" class="historico-vazio"><span>⌕</span><strong>Nenhuma movimentação encontrada</strong><p>Tente mudar os filtros ou limpar a pesquisa.</p><a class="botao cancelar" href="{{ url_for('historico.historico') }}">Limpar filtros</a></td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<p class="historico-rodape">Exibindo {{ total_registros }} registro(s) conforme os filtros selecionados. As quantidades representam unidades movimentadas, não o saldo atual do produto.</p>
+{% endblock %}

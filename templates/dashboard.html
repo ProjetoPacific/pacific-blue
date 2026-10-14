@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Pacific Blue{% endblock %}
+{% block content %}
+    <div class="dashboard-intro">
+        <div>
+            <div class="eyebrow">Visão geral da operação</div>
+            <h1>Dashboard</h1>
+            <p>Olá, {{ usuario }}. Acompanhe o estoque e a produção em um só lugar.</p>
+        </div>
+    </div>
+
+    <div class="cards">
+        <div class="card"><p>Peças disponíveis em estoque</p><h3>{{ total_produtos }}</h3><div class="card-caption">Quantidade somada de todos os produtos</div></div>
+        <div class="card"><p>Produtos com estoque baixo</p><h3>{{ estoque_minimo }}</h3><div class="card-caption">No mínimo ou abaixo do limite definido</div></div>
+        <div class="card"><p>Lotes em lavanderia</p><h3>{{ lotes_lavanderia }}</h3><div class="card-caption">Lotes aguardando ou em processamento</div></div>
+    </div>
+
+    <div class="atalhos">
+        <a class="botao" href="{{ url_for('movimentacao.movimentacao', tipo='Entrada') }}">＋ Registrar entrada</a>
+        <a class="botao" href="{{ url_for('movimentacao.movimentacao', tipo='Saída') }}">− Registrar saída</a>
+        <a class="botao cancelar" href="{{ url_for('ordens.ordens_lista') }}">Acompanhar produção →</a>
+    </div>
+
+    <section class="painel">
+        <div class="painel-cabecalho"><h2>Movimentações recentes</h2><a href="{{ url_for('historico.historico') }}">Ver histórico →</a></div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Local</th></tr></thead>
+            <tbody>
+            {% for m in movimentacoes %}
+            <tr><td>{{ m.data }}</td><td><strong>{{ m.produto }}</strong></td><td><span class="status {% if m.tipo == 'Entrada' %}status-ok{% else %}status-pendente{% endif %}">{{ m.tipo }}</span></td><td>{{ m.quantidade|abs }}</td><td>{{ m.local }}</td></tr>
+            {% else %}<tr><td colspan="5">Nenhuma movimentação registrada ainda.</td></tr>{% endfor %}
+            </tbody>
+        </table></div>
+    </section>
+
+    <section class="painel">
+        <div class="painel-cabecalho"><h2>Atenção ao estoque</h2><a href="{{ url_for('produtos.produtos_lista') }}">Ver produtos →</a></div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Referência</th><th>Descrição</th><th>Estoque atual</th><th>Estoque mínimo</th><th>Situação</th></tr></thead>
+            <tbody>
+            {% for p in produtos_em_falta %}
+            <tr><td><strong>{{ p.referencia }}</strong></td><td>{{ p.descricao }}</td><td>{{ p.estoque }}</td><td>{{ p.estoque_minimo }}</td><td><span class="estoque-status status-baixo">Repor estoque</span></td></tr>
+            {% else %}<tr><td colspan="5">Tudo certo: nenhum produto está no estoque mínimo.</td></tr>{% endfor %}
+            </tbody>
+        </table></div>
+    </section>
+{% endblock %}

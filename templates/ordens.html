@@ -1,0 +1,53 @@
+<!-- tela de ordens de producao -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="eyebrow">Acompanhamento operacional</div>
+    <h1>Ordens de produção</h1>
+    <p>Acompanhe a etapa atual, o tempo em cada local e o histórico de movimentação de cada ordem.</p>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Código, referência, cliente, processo ou local...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('ordens.nova_ordem') }}">+ Nova Ordem</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Código</th>
+            <th>Referência</th>
+            <th>Cliente</th>
+            <th>QTD</th>
+            <th>Processo</th>
+            <th>Local atual</th>
+            <th>Data</th>
+            <th>Dias</th>
+            <th>Destino</th>
+            <th>Ação</th>
+        </tr>
+        {% for o in ordens %}
+        <tr>
+            <td>{{ o.numero }}</td>
+            <td>{{ o.referencia }}</td>
+            <td>{{ o.cliente }}</td>
+            <td>{{ o.quantidade }}</td>
+            <td>{{ o.processo }}</td>
+            <td><span class="status {% if o.local == 'Saída' %}status-ok{% elif o.dias_local|int >= 7 %}status-pendente{% else %}status-andamento{% endif %}">{{ o.local }}</span></td>
+            <td>{{ o.data_local }}</td>
+            <td>{% if o.dias_local|int >= 7 %}<span class="estoque-status status-baixo">{{ o.dias_local }} dias</span>{% else %}<span class="estoque-status status-ok">{{ o.dias_local }} dias</span>{% endif %}</td>
+            <td>{{ o.destino or '-' }}</td>
+            <td><a href="{{ url_for('ordens.mover_ordem', numero=o.numero) }}">Mudar local</a></td>
+        </tr>
+        <tr>
+            <td colspan="10" style="background:#f8fbff;color:#68788b;font-size:11px">
+                <strong>Fluxo:</strong>
+                {% for etapa in o.fluxo %}
+                    {{ etapa.local }} ({{ etapa.data }}){% if not loop.last %} → {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="10">Nenhuma ordem encontrada.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

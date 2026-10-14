@@ -1,0 +1,19 @@
+PACIFIC BLUE — Sistema de Gestão de Estoque
+
+Melhorias desta versão:
+- Interface renovada com identidade visual azul-marinho e azul.
+- Layout responsivo para desktop e celular.
+- Dashboard com cartões mais claros, atalhos de entrada/saída e alertas de estoque mínimo.
+- Indicadores visuais de estoque baixo, disponibilidade e status de produção/lotes.
+- Tabelas, filtros, formulários e navegação com melhor legibilidade.
+- Telas e rotas existentes preservadas.
+
+Como executar:
+1. Instale Python 3.10 ou superior.
+2. No terminal, dentro desta pasta, execute: pip install -r requirements.txt
+3. Execute: python main.py
+4. Abra: http://127.0.0.1:9000
+
+Observações importantes:
+- Os dados continuam armazenados nas listas de dados.py, como na versão original; portanto, cadastros feitos em execução não persistem após reiniciar o programa.
+- Este projeto ainda é uma versão de demonstração. Antes de uso real em produção, configure uma chave secreta por variável de ambiente, desative debug e implemente persistência em banco de dados e senhas com hash.
