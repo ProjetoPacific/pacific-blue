@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela de cadastro de produto / estoque -->
 
 {% extends 'base.html' %}
@@ -8,6 +9,16 @@
 
     <form method="get" class="filtros">
         <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar produto...">
+=======
+<!-- tela que mostra produtos e estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Produtos / Estoque</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Referência, produto, grupo ou cliente...">
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
         <select name="grupo">
             <option value="Todos">Todos os grupos</option>
@@ -23,6 +34,7 @@
             {% endfor %}
         </select>
 
+<<<<<<< HEAD
         <button type="submit">Buscar</button>
         <a class="botao" href="{{ url_for('produtos.novo_produto') }}">+ Novo Produto</a>
     </form>
@@ -41,10 +53,33 @@
             <th>Fornecedor</th>
             <th>Estoque</th>
             <th>Situação</th>
+=======
+        <select name="status">
+            <option value="Todos" {% if status == "Todos" %}selected{% endif %}>Todos</option>
+            <option value="OK" {% if status == "OK" %}selected{% endif %}>OK</option>
+            <option value="Baixo" {% if status == "Baixo" %}selected{% endif %}>Baixo</option>
+        </select>
+
+        <button type="submit">Filtrar</button>
+        <a class="botao" href="{{ url_for('produtos.novo_produto') }}">+ Novo Produto</a>
+    </form>
+
+    <h3>Lista de produtos</h3>
+    <table>
+        <tr>
+            <th>Referência</th>
+            <th>NCM</th>
+            <th>Produto</th>
+            <th>Cliente</th>
+            <th>Grupo</th>
+            <th>Estoque</th>
+            <th>Status</th>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         </tr>
         {% for p in produtos %}
         <tr>
             <td>{{ p.referencia }}</td>
+<<<<<<< HEAD
             <td>{{ p.descricao }}</td>
             <td>{{ p.cor }}</td>
             <td>{{ p.tamanho }}</td>
@@ -59,6 +94,15 @@
         </tr>
         {% else %}
         <tr><td colspan="12">Nenhum produto encontrado com esses filtros.</td></tr>
+=======
+            <td>{{ p.ncm }}</td>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.cliente }}</td>
+            <td>{{ p.grupo }}</td>
+            <td>{{ p.estoque }}</td>
+            <td>{% if p.estoque <= p.estoque_minimo %}Baixo{% else %}OK{% endif %}</td>
+        </tr>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         {% endfor %}
     </table>
 {% endblock %}

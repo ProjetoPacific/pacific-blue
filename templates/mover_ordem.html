@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 <!-- tela para mudar o local da ordem -->
 
 {% extends 'base.html' %}
 {% block content %}
     <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar</a>
+=======
+<!-- tela para mudar uma ordem de lugar -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar para ordens</a>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
     <h1>Mudar Local da Ordem {{ ordem.numero }}</h1>
 
     <div class="info-lote">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela para cadastrar lote -->
 
 {% extends 'base.html' %}
@@ -6,6 +7,13 @@
     <h1>Novo Lote</h1>
 
     {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+=======
+<!-- tela para criar um lote -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('lotes.lotes_lista') }}">← Novo Lote</a>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
     <form method="post">
         <label for="numero">Nº Lote</label>
@@ -14,6 +22,7 @@
         <label for="cliente">Cliente</label>
         <input type="text" id="cliente" name="cliente" placeholder="Ex: DKS" required>
 
+<<<<<<< HEAD
         <label for="data_entrada">Data de Entrada</label>
         <input type="text" id="data_entrada" name="data_entrada" placeholder="dd/mm/aaaa" required>
 
@@ -21,5 +30,11 @@
             <a class="botao cancelar" href="{{ url_for('lotes.lotes_lista') }}">Cancelar</a>
             <button type="submit" class="botao">Salvar Lote</button>
         </div>
+=======
+        <label for="data_entrada">Data Entrada</label>
+        <input type="text" id="data_entrada" name="data_entrada" placeholder="dd/mm/aaaa" required>
+
+        <button type="submit" class="botao">Salvar</button>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
     </form>
 {% endblock %}

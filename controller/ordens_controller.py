@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # cria ordens e muda elas de lugar
+=======
+#cria ordens e muda elas de lugar
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from dados import ordens, produtos, clientes, locais, processos
@@ -28,6 +32,7 @@ def nova_ordem():
     if "usuario" not in session:
         return redirect(url_for("login.login"))
 
+<<<<<<< HEAD
     erro = None
 
     if request.method == "POST":
@@ -78,15 +83,52 @@ def nova_ordem():
 
             ordens.append(ordem)
             return redirect(url_for("ordens.ordens_lista"))
+=======
+    if request.method == "POST":
+        referencia = request.form.get("referencia")
+        produto_encontrado = None
+        for p in produtos:
+            if p["referencia"] == referencia:
+                produto_encontrado = p
+
+        numero = request.form.get("numero")
+        cliente = request.form.get("cliente")
+        quantidade = int(request.form.get("quantidade"))
+        processo = request.form.get("processo")
+        local = request.form.get("local")
+        data_local = request.form.get("data_local")
+        destino = request.form.get("destino")
+
+        ordem = {
+            "numero": numero,
+            "referencia": referencia,
+            "cliente": cliente,
+            "quantidade": quantidade,
+            "processo": processo,
+            "local": local,
+            "data_local": data_local,
+            "status": "Finalizada" if local == "Saída" else "Em produção",
+            "destino": destino,
+            "fluxo": [{"local": local, "data": data_local}],
+        }
+        if produto_encontrado is not None and cliente == "":
+            ordem["cliente"] = produto_encontrado["cliente"]
+        ordens.append(ordem)
+        return redirect(url_for("ordens.ordens_lista"))
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
     referencias = []
     for p in produtos:
         referencias.append(p["referencia"])
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
     nomes_clientes = []
     for c in clientes:
         nomes_clientes.append(c["nome"])
 
+<<<<<<< HEAD
     return render_template(
         "nova_ordem.html",
         referencias=referencias,
@@ -95,6 +137,9 @@ def nova_ordem():
         processos=processos,
         erro=erro,
     )
+=======
+    return render_template("nova_ordem.html", referencias=referencias, clientes=nomes_clientes, locais=locais, processos=processos)
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
 
 @ordens_bp.route("/ordens/<numero>/mover", methods=["GET", "POST"])
@@ -125,11 +170,17 @@ def mover_ordem(numero):
             ordem["data_local"] = nova_data
             ordem["destino"] = novo_destino
             ordem["status"] = "Finalizada" if novo_local == "Saída" else "Em produção"
+<<<<<<< HEAD
 
             local_fluxo = novo_local
             if novo_local == "Saída" and novo_destino:
                 local_fluxo = "Saída para " + novo_destino
 
+=======
+            local_fluxo = novo_local
+            if novo_local == "Saída" and novo_destino:
+                local_fluxo = "Saída para " + novo_destino
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
             ordem["fluxo"].append({"local": local_fluxo, "data": nova_data})
             return redirect(url_for("ordens.ordens_lista"))
 

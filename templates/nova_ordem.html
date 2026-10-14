@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela de nova ordem de producao -->
 
 {% extends 'base.html' %}
@@ -6,6 +7,14 @@
     <h1>Ordem de Produção</h1>
 
     {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+=======
+<!-- tela para criar uma nova ordem de producao -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar para ordens</a>
+    <h1>Nova Ordem de Produção</h1>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
     <form method="post" class="form-produto">
         <div class="coluna">
@@ -19,8 +28,13 @@
             </select>
 
             <label for="cliente">Cliente</label>
+<<<<<<< HEAD
             <select id="cliente" name="cliente">
                 <option value="">Usar cliente da referência</option>
+=======
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione</option>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
                 {% for c in clientes %}<option>{{ c }}</option>{% endfor %}
             </select>
 

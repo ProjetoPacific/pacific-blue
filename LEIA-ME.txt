@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 PACIFIC BLUE — Sistema de Gestão de Estoque
 
 Melhorias desta versão:
@@ -17,3 +18,53 @@ Como executar:
 Observações importantes:
 - Os dados continuam armazenados nas listas de dados.py, como na versão original; portanto, cadastros feitos em execução não persistem após reiniciar o programa.
 - Este projeto ainda é uma versão de demonstração. Antes de uso real em produção, configure uma chave secreta por variável de ambiente, desative debug e implemente persistência em banco de dados e senhas com hash.
+=======
+PACIFIC BLUE - Sistema de Gestão de Estoque
+=============================================
+
+COMO RODAR
+----------
+1. Instale o Flask (se ainda não tiver):
+   pip install flask
+
+2. Dentro da pasta "pacific_blue", rode:
+   python main.py
+
+3. Acesse no navegador:
+   http://localhost:9000
+
+LOGIN PARA TESTAR
+------------------
+Usuário: caue     | Senha: 1234
+Usuário: kauan    | Senha: 1234
+Usuário: gabriel  | Senha: 1234
+Usuário: mahmoud  | Senha: 1234
+Usuário: kaue     | Senha: 1234
+
+ESTRUTURA
+---------
+main.py                -> registra os blueprints (LIGA O SITE)
+dados.py               -> listas de dicionários em memória
+                         (sem banco de dados; os dados somem ao reiniciar) (GUARDA OS DADOS)
+datas.py               -> funções simples para data atual e dias no local (CUIDA DAS DATAS)
+controller/             -> um blueprint por área do sistema (FAZ AS COISAS)
+templates/              -> páginas HTML com Jinja (MOSTRA AS TELAS)
+static/css/estilo.css   -> CSS próprio, usando flexbox, bordas e formulários (DEIXA BONITO)
+
+FUNCIONALIDADES
+----------------
+- Login e logout
+- Cadastro de novas contas
+- Recuperação de senha usando usuário + e-mail cadastrado
+- Alteração de senha para o usuário logado
+- Cadastro e consulta de produtos
+- Cadastro e consulta de clientes
+- Movimentação de estoque por Entrada, Saída e Ajuste
+- Motivos de movimentação separados por tipo
+- Controle simples para não deixar a saída ultrapassar o estoque
+- Cadastro e conversão de lotes de lavanderia
+- Ordens de produção com processo, local, data, dias no local e fluxo
+- Mudança de local e registro no fluxo da ordem
+- Relatórios de estoque, movimentações, estoque mínimo e lotes
+- Histórico de movimentações
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861

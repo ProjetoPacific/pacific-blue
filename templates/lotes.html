@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela de lotes -->
 
 {% extends 'base.html' %}
@@ -8,6 +9,16 @@
 
     <form method="get" class="filtros">
         <input type="text" name="busca" value="{{ busca }}" placeholder="Número, cliente ou status...">
+=======
+<!-- tela que mostra lotes -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Lotes de Lavanderia</h1>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Lote ou referência...">
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         <button type="submit">Buscar</button>
         <a class="botao" href="{{ url_for('lotes.novo_lote') }}">+ Novo Lote</a>
     </form>
@@ -15,19 +26,32 @@
     <table>
         <tr>
             <th>Nº Lote</th>
+<<<<<<< HEAD
             <th>Data de Entrada</th>
             <th>Cliente</th>
             <th>Status</th>
+=======
+            <th>Data Entrada</th>
+            <th>Cliente</th>
+            <th>Status</th>
+            <th>Ações</th>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         </tr>
         {% for l in lotes %}
         <tr>
             <td>{{ l.numero }}</td>
             <td>{{ l.data_entrada }}</td>
             <td>{{ l.cliente }}</td>
+<<<<<<< HEAD
             <td><span class="status {% if 'Lavanderia' in l.status %}status-andamento{% elif 'Recebido' in l.status %}status-ok{% else %}status-pendente{% endif %}">{{ l.status }}</span></td>
         </tr>
         {% else %}
         <tr><td colspan="4">Nenhum lote encontrado.</td></tr>
+=======
+            <td>{{ l.status }}</td>
+            <td><a href="{{ url_for('lotes.conversao_lote', numero=l.numero) }}">Converter</a></td>
+        </tr>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         {% endfor %}
     </table>
 {% endblock %}

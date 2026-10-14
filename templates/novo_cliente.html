@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 <!-- tela para cadastrar cliente -->
 
 {% extends 'base.html' %}
 {% block content %}
     <a class="voltar" href="{{ url_for('clientes.clientes_lista') }}">← Voltar</a>
     <h1>Cadastro de Cliente</h1>
+=======
+<!-- tela para criar um cliente -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('clientes.clientes_lista') }}">← Voltar para clientes</a>
+    <h1>Cadastrar Cliente</h1>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
     {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
 

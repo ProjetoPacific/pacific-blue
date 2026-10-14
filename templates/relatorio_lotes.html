@@ -1,0 +1,16 @@
+<!-- tela que mostra o relatorio dos lotes de lavanderia -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('relatorios.relatorios') }}">← Relatórios</a>
+    <h1>Lotes de Lavanderia</h1>
+    <table>
+        <tr><th>Nº Lote</th><th>Data de Entrada</th><th>Cliente</th><th>Status</th><th>Ação</th></tr>
+        {% for l in lotes %}
+        <tr>
+            <td>{{ l.numero }}</td><td>{{ l.data_entrada }}</td><td>{{ l.cliente }}</td><td>{{ l.status }}</td>
+            <td><a href="{{ url_for('lotes.conversao_lote', numero=l.numero) }}">Converter</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

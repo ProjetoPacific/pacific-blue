@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela de controle de estoque -->
 
 {% extends 'base.html' %}
@@ -5,10 +6,21 @@
     <div class="eyebrow">Entradas e saídas</div>
     <h1>Controle de estoque</h1>
     <p>Registre movimentações com documento, origem e local para manter o saldo rastreável.</p>
+=======
+<!-- tela para adicionar ou retirar produtos do estoque -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Movimentação de Estoque</h1>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
     <div class="abas">
         <a class="{% if tipo == 'Entrada' %}aba-ativa{% endif %}" href="?tipo=Entrada">Entrada</a>
         <a class="{% if tipo == 'Saída' %}aba-ativa{% endif %}" href="?tipo=Saída">Saída</a>
+<<<<<<< HEAD
+=======
+        <a class="{% if tipo == 'Ajuste' %}aba-ativa{% endif %}" href="?tipo=Ajuste">Ajuste</a>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
     </div>
 
     {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
@@ -18,15 +30,21 @@
 
         <label for="produto">Produto</label>
         <select id="produto" name="produto" required>
+<<<<<<< HEAD
             <option value="">Selecione</option>
             {% for p in produtos %}
             <option value="{{ p.referencia }}">{{ p.referencia }} - {{ p.descricao }}</option>
+=======
+            {% for p in produtos %}
+            <option value="{{ p.referencia }}">{{ p.referencia }} - {{ p.nome }}</option>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
             {% endfor %}
         </select>
 
         <label for="quantidade">Quantidade</label>
         <input type="number" id="quantidade" name="quantidade" min="1" placeholder="Digite a quantidade" required>
 
+<<<<<<< HEAD
         <label for="data">Data</label>
         <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
 
@@ -68,13 +86,35 @@
             {% for l in locais %}
             <option value="{{ l }}">{{ l }}</option>
             {% endfor %}
+=======
+        {% if tipo == 'Ajuste' %}
+        <label for="sinal_ajuste">Tipo do ajuste</label>
+        <select id="sinal_ajuste" name="sinal_ajuste">
+            <option value="entrada">Aumentar estoque</option>
+            <option value="saida">Diminuir estoque</option>
+        </select>
+        {% endif %}
+
+        <label for="motivo">Motivo</label>
+        <select id="motivo" name="motivo" required>
+            <option value="">Selecione</option>
+            {% for motivo in motivos %}<option>{{ motivo }}</option>{% endfor %}
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         </select>
 
         <label for="observacao">Observação (opcional)</label>
         <textarea id="observacao" name="observacao" placeholder="Digite uma observação..."></textarea>
 
+<<<<<<< HEAD
         <button type="submit" class="botao">Registrar {{ tipo }}</button>
     </form>
 
     <a class="voltar" href="{{ url_for('historico.historico') }}">Ver Histórico de Movimentações</a>
+=======
+        <label for="data">Data da Movimentação</label>
+        <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
+
+        <button type="submit" class="botao">Registrar</button>
+    </form>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 {% endblock %}

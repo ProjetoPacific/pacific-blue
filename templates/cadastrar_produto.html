@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- tela de cadastro de produto / estoque -->
 
 {% extends 'base.html' %}
@@ -29,17 +30,52 @@
         </div>
 
         <div class="coluna">
+=======
+<!-- tela para cadastrar produto -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('produtos.produtos_lista') }}">← Voltar para produtos</a>
+
+    <h1>Cadastrar Produto</h1>
+
+    <form method="post" class="form-produto">
+        <div class="coluna">
+            <h3>Identificação</h3>
+
+            <label for="referencia">Referência</label>
+            <input type="text" id="referencia" name="referencia" placeholder="Ex: DKS-PDB-001" required>
+
+            <label for="ncm">NCM</label>
+            <input type="text" id="ncm" name="ncm" placeholder="Ex: 6203.42.00" required>
+
+            <label for="nome">Nome do Produto</label>
+            <input type="text" id="nome" name="nome" placeholder="Ex: Calça Jeans" required>
+
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" name="descricao" placeholder="Digite uma descrição" required>
+
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
             <label for="grupo">Grupo</label>
             <select id="grupo" name="grupo" required>
                 <option value="">Selecione</option>
                 {% for g in grupos %}<option>{{ g }}</option>{% endfor %}
             </select>
 
+<<<<<<< HEAD
             <label for="grade">Grade</label>
             <input type="text" id="grade" name="grade" placeholder="Ex: P:10 M:20 G:20" required>
 
             <label for="data">Data</label>
             <input type="text" id="data" name="data" placeholder="dd/mm/aaaa" required>
+=======
+            <label for="estilo">Estilo</label>
+            <input type="text" id="estilo" name="estilo" placeholder="Ex: Reta">
+        </div>
+
+        <div class="coluna">
+            <h3>Características</h3>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
 
             <label for="cliente">Cliente</label>
             <select id="cliente" name="cliente" required>
@@ -47,16 +83,43 @@
                 {% for c in clientes %}<option>{{ c }}</option>{% endfor %}
             </select>
 
+<<<<<<< HEAD
             <label for="fornecedor">Fornecedor</label>
             <select id="fornecedor" name="fornecedor" required>
                 <option value="">Selecione</option>
                 {% for f in fornecedores %}<option>{{ f }}</option>{% endfor %}
             </select>
+=======
+            <label for="genero">Gênero</label>
+            <select id="genero" name="genero" required>
+                <option value="">Selecione</option>
+                {% for g in generos %}<option>{{ g }}</option>{% endfor %}
+            </select>
+
+            <label for="cor">Cor</label>
+            <input type="text" id="cor" name="cor" placeholder="Ex: Azul">
+
+            <label for="tamanhos">Tamanhos</label>
+            <input type="text" id="tamanhos" name="tamanhos" placeholder="Ex: 36 a 48">
+
+            <label for="tecido">Tecido</label>
+            <input type="text" id="tecido" name="tecido" placeholder="Ex: Denim">
+
+            <label for="composicao">Composição</label>
+            <input type="text" id="composicao" name="composicao" placeholder="Ex: 100% algodão">
+
+            <label for="data_estoque">Data do Estoque</label>
+            <input type="text" id="data_estoque" name="data_estoque" placeholder="dd/mm/aaaa">
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         </div>
 
         <div class="botoes">
             <a class="botao cancelar" href="{{ url_for('produtos.produtos_lista') }}">Cancelar</a>
+<<<<<<< HEAD
             <button type="submit" class="botao">Salvar Produto</button>
+=======
+            <button type="submit" class="botao">Salvar</button>
+>>>>>>> 17fd6b1368a91262f521c0b84770b833fd125861
         </div>
     </form>
 {% endblock %}
