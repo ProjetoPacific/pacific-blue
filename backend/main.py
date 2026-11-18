@@ -23,7 +23,8 @@ app = Flask(
     template_folder=os.path.join(FRONTEND, "templates"),
     static_folder=os.path.join(FRONTEND, "static"),
 )
-app.secret_key = "pacificblue"
+# em uso real, defina a variável de ambiente SECRET_KEY (o padrão serve só para estudo)
+app.secret_key = os.environ.get("SECRET_KEY", "pacificblue")
 
 # cria o banco (pacific_blue.db) na primeira execução e fecha a conexão ao fim de cada requisição
 banco.iniciar_banco()
@@ -42,4 +43,5 @@ app.register_blueprint(tecnologias_bp)
 
 if __name__ == "__main__":
     print("Banco de dados:", banco.CAMINHO_BANCO)
-    app.run(port=9000, debug=True)
+    # FLASK_DEBUG=0 desliga o modo debug
+    app.run(port=9000, debug=os.environ.get("FLASK_DEBUG", "1") != "0")

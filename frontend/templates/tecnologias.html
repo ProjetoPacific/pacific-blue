@@ -36,12 +36,43 @@ de aplicações web e sistemas de gerenciamento.</p>
 </div>
 
 <div class="painel">
+    <h2>SQLite</h2>
+
+    <h3>Definição</h3>
+    <p>
+        SQLite é um banco de dados relacional que guarda tudo em um único arquivo,
+        sem precisar de um servidor de banco de dados. É o banco usado hoje
+        pelo Pacific Blue, acessado direto pelo módulo sqlite3 do Python.
+    </p>
+
+    <h3>Características</h3>
+    <ul class="sem-bolinhas">
+        <li>Já vem instalado junto com o Python.</li>
+        <li>Todos os dados ficam no arquivo pacific_blue.db.</li>
+        <li>Suporta transações: ou grava tudo, ou não grava nada.</li>
+        <li>Faz as validações do banco, como referência única e estoque nunca negativo.</li>
+    </ul>
+
+    <h3>Vantagens</h3>
+    <ul class="sem-bolinhas">
+        <li>Não exige instalação nem configuração de servidor.</li>
+        <li>O backup é copiar o arquivo do banco.</li>
+        <li>Os dados continuam salvos mesmo se o programa fechar de repente.</li>
+        <li>Suficiente para o escopo deste projeto.</li>
+    </ul>
+</div>
+
+<div class="painel">
     <h2>SQLAlchemy</h2>
 
     <h3>Definição</h3>
     <p>
         SQLAlchemy é uma biblioteca Python utilizada
         para trabalhar com bancos de dados relacionais.
+    </p>
+    <p>
+        <strong>No Pacific Blue:</strong> ainda não é utilizado. O sistema acessa
+        o SQLite diretamente, e o SQLAlchemy é um próximo passo previsto.
     </p>
 
     <h3>Características</h3>
