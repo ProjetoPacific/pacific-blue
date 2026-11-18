@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block content %}
+<div class="eyebrow">Cadastro e relacionamento</div><h1>Cadastro de Clientes</h1>
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+{% if sucesso %}
+<p class="sucesso">{{ sucesso }}</p>
+{% endif %}
+<form method="get" class="filtros"><input type="text" name="busca" value="{{ busca }}" placeholder="Código, nome, CNPJ ou telefone..."><button type="submit">Buscar</button><a class="botao" href="{{ url_for('clientes.novo_cliente') }}">+ Novo Cliente</a></form>
+<div class="historico-tabela"><table><tr><th>Código</th><th>Nome fantasia</th><th>Razão social</th><th>Telefone</th><th>CNPJ</th><th>Inscrição estadual</th><th>Data</th><th>Ação</th></tr>
+{% for c in clientes %}<tr><td>{{ c.codigo or '-' }}</td><td><strong>{{ c.nome_fantasia or c.nome }}</strong></td><td>{{ c.razao_social or '-' }}</td><td>{{ c.telefone }}</td><td>{{ c.cnpj or '-' }}</td><td>{{ c.inscricao_estadual or '-' }}</td><td>{{ c.data or '-' }}</td><td><a class="botao cancelar"href="{{ url_for('clientes.editar_cliente', codigo=c.codigo) }}">Editar</a><form method="POST"action="{{ url_for('clientes.excluir_cliente', codigo=c.codigo) }}"style="display:inline; margin-left: 8px;"onsubmit="return confirm('Deseja excluir este cliente?')"><button type="submit" class="link-perigo">Excluir</button></form></td></tr>
+{% else %}<tr><td colspan="8">Nenhum cliente encontrado.</td></tr>{% endfor %}</table></div>{% endblock %}

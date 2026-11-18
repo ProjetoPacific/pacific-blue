@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a class="voltar" href="{{ url_for('ordens.ordens_lista') }}">← Voltar</a>
+    <div class="eyebrow">Cadastro manual</div>
+    <h1>{% if ordem %}Editar ordem de produção{% else %}Nova ordem de produção{% endif %}</h1>
+    <p>Informe o código exatamente como foi definido pelo cliente. Nenhuma fórmula será gerada automaticamente.</p>
+
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+
+    <form method="post" class="form-produto">
+        <div class="coluna">
+            <label for="numero">Código da ordem</label>
+            <input type="text" id="numero" name="numero" value="{{ ordem.numero if ordem else '' }}" placeholder="Ex: 230526" {% if ordem %}readonly{% endif %} required>
+
+            <label for="cliente">Cliente</label>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione o cliente</option>
+                {% for c in clientes %}
+                    <option value="{{ c }}" {% if ordem and ordem.cliente == c %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="referencia">Referência</label>
+            <input type="text" id="referencia" name="referencia" value="{{ ordem.referencia if ordem else '' }}" placeholder="Ex: PB-032" required>
+        </div>
+
+        <div class="coluna">
+            <label for="local">Local atual</label>
+            <input type="text" id="local" name="local" value="{{ ordem.local if ordem else '' }}" placeholder="Ex: Lavanderia, Laser, Passadoria..." required>
+
+            <label for="data_chegada">Data de chegada</label>
+            <input type="date" id="data_chegada" name="data_chegada" value="{{ ordem.data_chegada if ordem else hoje }}" required>
+
+            {% if ordem %}
+                <p class="ajuda-campo">A última atualização será registrada automaticamente ao salvar.</p>
+            {% else %}
+                <p class="ajuda-campo">A contagem de dias começa a partir do cadastro da ordem.</p>
+            {% endif %}
+        </div>
+
+        <div class="coluna coluna-processos">
+            <label>Processos</label>
+            <div class="grade-processos">
+                {% for p in processos %}
+                    <label class="checkbox-processo">
+                        <input type="checkbox" name="processos" value="{{ p }}" {% if ordem and p in ordem.processos %}checked{% endif %}>
+                        <span>{{ p }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="botoes">
+            <a class="botao cancelar" href="{{ url_for('ordens.ordens_lista') }}">Cancelar</a>
+            <button type="submit" class="botao">{% if ordem %}Salvar alterações{% else %}Cadastrar ordem{% endif %}</button>
+        </div>
+    </form>
+{% endblock %}

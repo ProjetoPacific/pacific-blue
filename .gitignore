@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Banco de dados local (cada pessoa tem o seu; é criado na primeira execução)
+*.db
+*.db-journal
+*.sqlite3
+
+# Segredos e configurações locais
+.env
+.env.*
+
+# Editor / sistema
+.vscode/*
+!.vscode/launch.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Mobile (quando existir)
+node_modules/
+build/
+.dart_tool/

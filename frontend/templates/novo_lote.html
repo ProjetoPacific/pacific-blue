@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<a class="voltar" href="{{ url_for('lotes.lotes_lista') }}">← Voltar</a><h1>{% if lote %}Editar lote{% else %}Novo Lote{% endif %}</h1>
+{% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+<form method="post"><label for="referencia">Referência do produto</label><select id="referencia" name="referencia" required><option value="">Selecione</option>{% for p in produtos %}<option value="{{ p.referencia }}" {% if lote and (lote.referencia or lote.numero) == p.referencia %}selected{% endif %}>{{ p.referencia }} - {{ p.descricao }}</option>{% endfor %}</select>
+<label for="cliente">Cliente</label><input id="cliente" name="cliente" value="{{ lote.cliente if lote else '' }}" required>
+<label for="data_entrada">Data de Entrada</label><input type="text" id="data_entrada" name="data_entrada" value="{{ lote.data_entrada if lote else '' }}" placeholder="dd/mm/aaaa" required>
+<label for="status">Status</label><select id="status" name="status">{% for st in ['Recebido','Em Lavanderia','Parado','Concluído'] %}<option value="{{ st }}" {% if lote and lote.status == st %}selected{% endif %}>{{ st }}</option>{% endfor %}</select>
+<div class="botoes"><a class="botao cancelar" href="{{ url_for('lotes.lotes_lista') }}">Cancelar</a><button type="submit" class="botao">Salvar Lote</button></div></form>{% endblock %}

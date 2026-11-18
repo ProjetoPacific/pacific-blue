@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="eyebrow">Acompanhamento operacional</div>
+    <h1>Ordens de produção</h1>
+    <p>Cadastre e acompanhe manualmente cada ordem de produção.</p>
+
+    <form method="get" class="filtros">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar por código, cliente, referência, local ou processo...">
+        <button type="submit">Buscar</button>
+        <a class="botao" href="{{ url_for('ordens.nova_ordem') }}">+ Nova ordem</a>
+    </form>
+
+    <div class="tabela-responsiva">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código da ordem</th>
+                    <th>Cliente</th>
+                    <th>Referência</th>
+                    <th>Local atual</th>
+                    <th>Dias desde atualização</th>
+                    <th>Data de chegada</th>
+                    <th>Processos</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in ordens %}
+                <tr>
+                    <td><strong>{{ o.numero }}</strong></td>
+                    <td>{{ o.cliente }}</td>
+                    <td>{{ o.referencia }}</td>
+                    <td>{{ o.local }}</td>
+                    <td>{{ o.dias_atualizacao }} dia(s)<br><small>Atualizada em {{ o.ultima_atualizacao_formatada }}</small></td>
+                    <td>{{ o.chegada_formatada }}</td>
+                    <td>
+                        {% if o.processos %}
+                            {{ o.processos|join(', ') }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="acoes-ordem">
+                        <a href="{{ url_for('ordens.editar_ordem', numero=o.numero) }}">Editar</a>
+                        <form method="post" action="{{ url_for('ordens.excluir_ordem', numero=o.numero) }}" onsubmit="return confirm('Deseja excluir esta ordem?')">
+                            <button type="submit" class="link-perigo">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="8">Nenhuma ordem cadastrada. Clique em “Nova ordem” para começar.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

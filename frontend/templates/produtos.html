@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="eyebrow">Catálogo e disponibilidade</div><h1>Produtos e estoque</h1>
+{% if erro %}
+    <p class="erro">{{ erro }}</p>
+{% endif %}
+
+{% if sucesso %}
+    <p class="sucesso">{{ sucesso }}</p>
+{% endif %}
+<p>Consulte as referências e ajuste diretamente a quantidade disponível de cada produto.</p>
+<form method="get" class="filtros">
+<input type="text" name="busca" value="{{ busca }}" placeholder="Buscar produto...">
+<select name="grupo"><option value="Todos">Todos os grupos</option>{% for g in grupos %}<option value="{{ g }}" {% if grupo == g %}selected{% endif %}>{{ g }}</option>{% endfor %}</select>
+<select name="cliente"><option value="Todos">Todos os clientes</option>{% for c in clientes %}<option value="{{ c }}" {% if cliente == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select>
+<button type="submit">Buscar</button><a class="botao" href="{{ url_for('produtos.novo_produto') }}">+ Novo Produto</a></form>
+<div class="historico-tabela"><table><tr><th>Referência</th><th>Descrição</th><th>Cor</th><th>Tamanho</th><th>Gênero</th><th>Grupo</th><th>Grade</th><th>Data</th><th>Cliente</th><th>Fornecedor</th><th>Peças em estoque</th><th>Ação</th></tr>
+{% for p in produtos %}<tr><td><strong>{{ p.referencia }}</strong></td><td>{{ p.descricao }}</td><td>{{ p.cor }}</td><td>{{ p.tamanho }}</td><td>{{ p.genero }}</td><td>{{ p.grupo }}</td><td>{{ p.grade }}</td><td>{{ p.data }}</td><td>{{ p.cliente }}</td><td>{{ p.fornecedor }}</td><td><strong>{{ p.estoque }}</strong></td><td><a class="botao cancelar"href="{{ url_for('produtos.editar_produto',referencia=p.referencia) }}">Editar</a><form method="POST"action="{{ url_for('produtos.excluir_produto',referencia=p.referencia) }}"onsubmit="return confirm('Deseja excluir este produto?')"><button type="submit" class="link-perigo">Excluir</button></form></td></button></form></a></tr>
+{% else %}<tr><td colspan="12">Nenhum produto encontrado com esses filtros.</td></tr>{% endfor %}</table></div>{% endblock %}

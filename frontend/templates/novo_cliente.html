@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block content %}
+<a class="voltar" href="{{ url_for('clientes.clientes_lista') }}">← Voltar</a><h1>{% if cliente %}Editar cliente{% else %}Cadastro de Cliente{% endif %}</h1>
+{% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+<form method="post" class="form-produto"><div class="coluna">
+<label for="codigo">Código</label><input id="codigo" name="codigo" value="{{ cliente.codigo if cliente else '' }}" required>
+<label for="nome_fantasia">Nome fantasia</label><input id="nome_fantasia" name="nome_fantasia" value="{{ cliente.nome_fantasia if cliente else (cliente.nome if cliente else '') }}" required>
+<label for="razao_social">Razão social</label><input id="razao_social" name="razao_social" value="{{ cliente.razao_social if cliente else '' }}" required>
+<label for="cnpj">CNPJ</label><input id="cnpj" name="cnpj" value="{{ cliente.cnpj if cliente else '' }}">
+<label for="inscricao_estadual">Inscrição estadual</label><input id="inscricao_estadual" name="inscricao_estadual" value="{{ cliente.inscricao_estadual if cliente else '' }}">
+</div><div class="coluna">
+<label for="endereco">Endereço</label><input id="endereco" name="endereco" value="{{ cliente.endereco if cliente else '' }}">
+<label for="telefone">Telefone</label><input id="telefone" name="telefone" value="{{ cliente.telefone if cliente else '' }}">
+<label for="transferencia">Transferência</label><input id="transferencia" name="transferencia" value="{{ cliente.transferencia if cliente else '' }}" placeholder="Informação de transferência">
+<label for="data">Data</label><input id="data" name="data" type="date" value="{{ cliente.data if cliente else '' }}">
+</div><div class="botoes"><a class="botao cancelar" href="{{ url_for('clientes.clientes_lista') }}">Cancelar</a><button type="submit" class="botao">Salvar</button></div></form>{% endblock %}
